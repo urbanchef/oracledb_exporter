@@ -1,5 +1,5 @@
 FROM ubuntu:17.10
-MAINTAINER Seth Miller <seth@sethmiller.me>
+MAINTAINER Yannig Perré <yannig.perre@gmail.com>
 
 RUN apt-get -qq update && \
     apt-get install --no-install-recommends -qq libaio1 rpm wget -y && \
@@ -9,7 +9,7 @@ RUN apt-get -qq update && \
 
 ENV LD_LIBRARY_PATH /usr/lib/oracle/12.2/client64/lib
 
-ADD ./dist/oracledb_exporter.linux-* /oracledb_exporter
+ADD ./dist/oracledb_exporter.*.linux-amd64/oracledb_exporter /oracledb_exporter
 ADD ./default-metrics.toml /default-metrics.toml
 
 RUN chmod 755 /oracledb_exporter

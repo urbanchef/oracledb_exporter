@@ -1,15 +1,25 @@
-VERSION := 0.0.7
+VERSION := 0.1.0
 
 LDFLAGS := -X main.Version=$(VERSION)
 GOFLAGS := -ldflags "$(LDFLAGS) -s -w"
 GOARCH ?= $(subst x86_64,amd64,$(patsubst i%86,386,$(shell uname -m)))
 
 
-build:
-	@echo build
-	@mkdir -p ./dist
-	@PKG_CONFIG_PATH=${PWD} GOOS=linux go build $(GOFLAGS) -o ./dist/oracledb_exporter.linux-${GOARCH}
-	@PKG_CONFIG_PATH=${PWD} GOOS=darwin go build $(GOFLAGS) -o ./dist/oracledb_exporter.darwin-${GOARCH}
+linux:
+	@echo build linux
+	@mkdir -p ./dist/oracledb_exporter.$(VERSION).linux-${GOARCH}
+	@PKG_CONFIG_PATH=${PWD} GOOS=linux go build $(GOFLAGS) -o ./dist/oracledb_exporter.$(VERSION).linux-${GOARCH}/oracledb_exporter
+	@cp default-metrics.toml ./dist/oracledb_exporter.$(VERSION).linux-${GOARCH}
+	@(cd dist ; tar cfz oracledb_exporter.$(VERSION).linux-${GOARCH}.tar.gz oracledb_exporter.$(VERSION).linux-${GOARCH})
+
+darwin:
+	@echo build darwin
+	@mkdir -p ./dist/oracledb_exporter.$(VERSION).darwin-${GOARCH}
+	@PKG_CONFIG_PATH=${PWD} GOOS=darwin go build $(GOFLAGS) -o ./dist/oracledb_exporter.$(VERSION).darwin-${GOARCH}/oracledb_exporter
+	@cp default-metrics.toml ./dist/oracledb_exporter.$(VERSION).darwin-${GOARCH}
+	@(cd dist ; tar cfz oracledb_exporter.$(VERSION).darwin-${GOARCH}.tar.gz oracledb_exporter.$(VERSION).darwin-${GOARCH})
+
+build:  linux
 
 deps:
 	@echo deps
@@ -30,8 +40,8 @@ clean:
 	@rm -rf ./dist
 
 docker:
-	@docker build -t "iamseth/oracledb_exporter:${VERSION}" .
-	@docker tag iamseth/oracledb_exporter:${VERSION} iamseth/oracledb_exporter:latest
+	@docker build -t "yannig/oracledb_exporter:${VERSION}" .
+	@docker tag yannig/oracledb_exporter:${VERSION} yannig/oracledb_exporter:latest
 
 travis: deps test build docker
 	@true
