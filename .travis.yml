@@ -10,15 +10,16 @@ deploy:
   skip_cleanup: true
   provider: releases
   api_key:
-    secure: CdygcKAdR+b/7mgkpJMtlBtOxirjL+bL4P4yHMoCPcf2Cf34VATJ+4iQX3a9gHoJI3LYMHvvJ7Khv6Cr7LHXARN1vxd360yKe2Gf+CbibXuljk7lNGgM0OmAa8OWLiDYJugGZIi+Nh+mGlvoM+T919twGMlP1nEO9I4Ac57PaPdEraVhsgkWZ3AejwDfGTbpWk2egGRFDo/aLd5M+j0XydeFshU22Eqn8MRjYoEibtS+tfbpv20t8L/loVLUNuFk7vpy+q7lJh6/UfEFeCmoNR077LWepDXXwR2zzfPaPpornRb7vaSP4yLygwgxVnmR43WRePvx+w96r+cPblZgxyEzR1wDOWG8yDA9ZtPE9RA09ZTlyN77DqkFLzCwrl0r7K0Ou6LIz4BPfkJ6DtG3h578o/00UGqmXeoNaRr5U6VChIbBAPQRZkf0HC+JNiMPFQ3QlmzUWm1+xTP7MLKUC6kwScKISGm5jA4eaHNOa5iUL/k899XZk2ylwu9S6tskPS/X2jOFnkvrZa+oFwn35OiBF6JausbDnkAmrbF8PUs0Qnfwz1Fg0j1WVhbeHqlr/MMN9Y4Lex3z8Nc7FWlc097EtzFI8e94JVIvHb1bmtYDxU8Ow4xxo3FnS6DkwporDpfso+AJqrutAQZ/RDsMoxtISi1UYN2xyW585F6MxU0=
+    secure: "WzMcl+OIZCMEdH/QypgA3L0xR3wv2r1ttqauvaGTUBgvakdLuAEUv/79VY6LndyJdvXNdXMsXRb/VMGdTYt5o9nJyoTrM3Ru/BTBgbkkVNbOLaVLzwLZ6QXLICUnR30bBGqgZAmFCGbj5bjwL2DCWeMfat850rCsbBXrszR0OP2x4JchXcw5fyWwaGyG5CPRPDC7dj4DdNPkBlP/oVBI4QFGQW4F6rbTT1ga3EQfFfsN5Aw37IPuifBrgdEs+YMaufRi9DZ/C3Omh207CQ4NyGLtFRqaS/UH2+R0tmU2VfqMCAkO6fqrZmCS6m17eL+Qr9jfaLC4bNYXF9/LISd/y7lVhoc1YHBpiM6sdRt9LZkN5uhWEl5b3sBAk3ZY/1wS3ioWb3E79Tn75NS5qphw4pFgvgoeoV6kFQE/iMSaEWwn+FL+2Qwf4FvNo0iMf1kAkR9TtbdK1pwVAgskzmpWCEFDfNF07dSBJJ5N/NCBkHP+hA3cwojFtE8BFWFMIkhtWMRxPc8YUNvK8IxynDLyIlo/39H63xvYQ4IWsckKgzkjROPIscyWP1HQ+BXTDSWprzDa1/tmidwI1y7SkfkV3SjLXwv5q4WZp+f7//fd1OWHnBjPQAOei8R7mJoxjFHbCMS09f7962nSy/ogo4J6HynEbGi6sEiIiKCP5lgdi3U="
   file:
-    - "./dist/oracledb_exporter.linux-amd64"
-    - "./dist/oracledb_exporter.darwin-amd64"
+    - "./dist/oracledb_exporter.*.linux-amd64.tar.gz"
   on:
-    repo: iamseth/oracledb_exporter
-    tags: true
-
+    repo: Yannig/oracledb_exporter
+    all_branches: true
 after_success:
-  docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  docker push iamseth/oracledb_exporter:${TRAVIS_TAG:-latest}
-
+  - echo "${DOCKER_PASS}" | docker login -u "yannig" --password-stdin
+  - docker push yannig/oracledb_exporter:${TRAVIS_TAG:-latest}
+env:
+  global:
+    # DOCKER_PASS
+    - secure: "W4DvW0jHRqkzMpzhi+BH5Rs82ckHPm298TNujyLrg1RGY3F9pOqdu84u4sM3Lvz0YxWmDu5GrjgqRIEqgvdmmLHxr7+3ePbQP+RYhfsundIBPZ1qD77ONEAWRy56w7RFJYS8mzwKI2KkLbsiG9hTOOXwpnhzzPBkvDzS4P0f+DODHu/YeCVnHy4qHW9FE/aJ82/Yetn2dS/MvJWcrMVhNEuHy/Q8OJaA3q9Er721a4PZX/r0NIDRLnqQYNXFdxmHyBBZ78t/EeUOKzptFpL35RHgxvD+CKEbob+EJmnGsKqQwe4Pgbq+PlGSrY4Pr6hI+/vLn76jnl1/rZpWnZAvBCEQ2ozgUGn5KRQz6c9BGFiM3xO5YAu2jm4O0Qnq7ueRzjMyneVtPzfWfcJ1cpk9EHxTJ+6CzQdpIIqCRfueI7eQMFM5IOsWyjJVeGhn5zM8MR3G27QqIMICNku2rRjyZm4Xs9asUErpGk1IxYiN5kV5EUwpxMsMZ5TtXWzN4GoAUYdd5sRx5LqjjbvHfFdD5uQcmN/zByrKrII4KxRPYpJ9cGu4w7U4R7IwmnK3xm7oAxFOD0iC5LTnHrcn1t8O547quJzGGWuYZ3JfEwW6Nf03s3fuKLOY3qR4tB4gIRq+7AsX82vbkA13pf7+xpkWwraIDiu6TLIRwnVaABBCosg="
