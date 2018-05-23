@@ -25,8 +25,8 @@ deps:
 	@echo deps
 	@sudo apt-get -qq update
 	@sudo apt-get install --no-install-recommends -qq libaio1 rpm
-	@wget https://www.dropbox.com/s/f2ul3y0854y8oqw/oracle-instantclient12.2-basic-12.2.0.1.0-1.x86_64.rpm
-	@wget https://www.dropbox.com/s/qftd81ezcp8k9kd/oracle-instantclient12.2-devel-12.2.0.1.0-1.x86_64.rpm
+	@wget -q https://www.dropbox.com/s/f2ul3y0854y8oqw/oracle-instantclient12.2-basic-12.2.0.1.0-1.x86_64.rpm
+	@wget -q https://www.dropbox.com/s/qftd81ezcp8k9kd/oracle-instantclient12.2-devel-12.2.0.1.0-1.x86_64.rpm
 	@sudo rpm -Uvh --nodeps oracle*rpm
 	@echo /usr/lib/oracle/12.2/client64/lib | sudo tee /etc/ld.so.conf.d/oracle.conf
 	@sudo ldconfig

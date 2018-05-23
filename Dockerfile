@@ -3,7 +3,7 @@ MAINTAINER Yannig Perré <yannig.perre@gmail.com>
 
 RUN apt-get -qq update && \
     apt-get install --no-install-recommends -qq libaio1 rpm wget -y && \
-    wget --no-check-certificate https://www.dropbox.com/s/f2ul3y0854y8oqw/oracle-instantclient12.2-basic-12.2.0.1.0-1.x86_64.rpm && \
+    wget -q --no-check-certificate https://www.dropbox.com/s/f2ul3y0854y8oqw/oracle-instantclient12.2-basic-12.2.0.1.0-1.x86_64.rpm && \
     rpm -Uvh --nodeps oracle*rpm && \
     rm -f oracle*rpm
 
