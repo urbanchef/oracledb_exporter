@@ -1,8 +1,8 @@
 # Oracle DB Exporter
 
-[![Build Status](https://travis-ci.org/iamseth/oracledb_exporter.svg)](https://travis-ci.org/iamseth/oracledb_exporter)
-[![GoDoc](https://godoc.org/github.com/iamseth/oracledb_exporter?status.svg)](http://godoc.org/github.com/iamseth/oracledb_exporter)
-[![Report card](https://goreportcard.com/badge/github.com/iamseth/oracledb_exporter)](https://goreportcard.com/badge/github.com/iamseth/oracledb_exporter)
+[![Build Status](https://travis-ci.org/Yannig/oracledb_exporter.svg)](https://travis-ci.org/Yannig/oracledb_exporter)
+[![GoDoc](https://godoc.org/github.com/Yannig/oracledb_exporter?status.svg)](http://godoc.org/github.com/Yannig/oracledb_exporter)
+[![Report card](https://goreportcard.com/badge/github.com/Yannig/oracledb_exporter)](https://goreportcard.com/badge/github.com/Yannig/oracledb_exporter)
 
 A [Prometheus](https://prometheus.io/) exporter for Oracle modeled after the MySQL exporter. I'm not a DBA or seasoned Go developer so PRs definitely welcomed.
 
@@ -40,7 +40,7 @@ You can run via Docker using an existing image. If you don't already have an Ora
 
 ```bash
 docker run -d --name oracle -p 1521:1521 wnameless/oracle-xe-11g:16.04
-docker run -d --name oracledb_exporter --link=oracle -p 9161:9161 -e DATA_SOURCE_NAME=system/oracle@oracle/xe iamseth/oracledb_exporter
+docker run -d --name oracledb_exporter --link=oracle -p 9161:9161 -e DATA_SOURCE_NAME=system/oracle@oracle/xe yannig/oracledb_exporter
 
 ```
 
