@@ -24,7 +24,6 @@ local-build:  linux
 build: docker
 
 prereq: oracle-instantclient12.2-basic-12.2.0.1.0-1.x86_64.rpm oracle-instantclient12.2-devel-12.2.0.1.0-1.x86_64.rpm
-	@echo deps
 	@sudo apt-get -qq update
 	@sudo apt-get install --no-install-recommends -qq libaio1 rpm
 	@sudo rpm -Uvh --nodeps oracle*rpm
@@ -51,7 +50,7 @@ docker: oracle-instantclient12.2-basic-12.2.0.1.0-1.x86_64.rpm oracle-instantcli
 	docker build --build-arg VERSION=$(VERSION) -t "yannig/oracledb_exporter:${VERSION}" .
 	docker tag yannig/oracledb_exporter:${VERSION} yannig/oracledb_exporter:latest
 
-travis: deps test linux docker
+travis: deps test prereq deps linux docker
 	@true
 
 .PHONY: build deps test clean docker travis
