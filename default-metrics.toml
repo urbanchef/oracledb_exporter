@@ -24,6 +24,11 @@ fieldtoappend = "name"
 request = "SELECT name, value FROM v$sysstat WHERE name IN ('parse count (total)', 'execute count', 'user commits', 'user rollbacks')"
 
 [[metric]]
+context = "process"
+metricsdesc = { count="Gauge metric with count of processes." }
+request = "SELECT COUNT(*) as count FROM v$process"
+
+[[metric]]
 context = "wait_time"
 metricsdesc = { value="Generic counter metric from v$waitclassmetric view in Oracle." }
 fieldtoappend= "wait_class"
