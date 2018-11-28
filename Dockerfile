@@ -1,4 +1,4 @@
-FROM golang:1.11 AS build
+FROM golang:1.11 as build
 
 RUN apt-get -qq update && apt-get install --no-install-recommends -qq libaio1 rpm
 COPY *.rpm /
