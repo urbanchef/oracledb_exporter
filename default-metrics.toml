@@ -37,7 +37,7 @@ and metric_name in ('Database CPU Time Ratio', 'Average Active Sessions','Physic
 
 [[metric]]
 context = "parameter"
-labels = "name"
+labels = [ "name" ]
 metricsdesc = { value= "Gauge initialization parameters currently in effect." }
 request = '''
 select name, value/1024/1024 as value
