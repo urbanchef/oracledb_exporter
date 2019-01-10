@@ -42,4 +42,5 @@ metricsdesc = { value= "Gauge initialization parameters currently in effect." }
 request = '''
 select name, value/1024/1024 as value
 from v$parameter 
+where name = 'pga_aggregate_target' or name = 'pga_aggregate_limit'
 '''
